@@ -82,6 +82,7 @@ The image file is quite universal supporting the following GPU architectures:
 - 86: RTX 30-series (3080, 3090) & A6000
 - 89: RTX 40-series (4080, 4090) & L40
 - 90: H100 & H200 (Hopper Datacenter)
+
 The numbers in the front represent the numbers how `lamacpp` can refer to the architectures. 
 If you want to optimize for your architecture and make a smaller image, put only the relevant number in the `DCMAKE_CUDA_ARCHITECTURES` setting in the `Dockerfile.` and build it for yourself, alternatively, you can use the prebuilt image.
 
