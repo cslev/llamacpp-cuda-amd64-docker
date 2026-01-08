@@ -1,29 +1,35 @@
 services:
-  llamacpp-server:
+  llamacpp-vision:
+    # BUILD
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: cslev/llamacpp-cuda-amd64:latest # The image you just compiled
-    container_name: llamacpp-server
+    container_name: llamacpp-vision
     restart: unless-stopped
     ports:
       - "3000:8033"
+    runtime: nvidia
     volumes:
       # Maps your local models folder to /models in the container
       - ./models:/models
-    environment:
-      - CUDA_VISIBLE_DEVICES=0
     # Command optimized for ARM64 and Router Mode
     command: >
       --models-preset /models/models.ini
       --host 0.0.0.0
-      --port 8033
-      --n-gpu-layers 99
-      --ctx-size 16384
-      --parallel 2
+      --port ${LLAMACPP_PORT}
+      --n-gpu-layers 999
+      --split-mode row
       --flash-attn on
+      --parallel 1
+      --ctx-size 32768
+      --batch-size 3072
+      --ubatch-size 768
       --context-shift
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
+      --cache-type-k q4_0
+      --cache-type-v q4_0
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=0,1
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+      - CUDA_VISIBLE_DEVICES=0,1
+
