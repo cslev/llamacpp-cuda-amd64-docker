@@ -43,25 +43,6 @@ Wed Dec 31 01:42:54 2025
 ```
 ---
 
-## Setup Environment Variables
-
-Set the appropriate environment variables in your `~/.bashrc` based on your CUDA version. For CUDA 12.8, add the following:
-
-```
-# CUDA 12.8 & GCC 12 Fix for ARM64
-export PATH=/usr/local/cuda-12.8/bin:$PATH
-export LD_LIBRARY_PATH=/usr/local/cuda-12.8/lib64:$LD_LIBRARY_PATH
-export CUDA_PATH=/usr/local/cuda-12.8
-export CC=gcc-12
-export CXX=g++-12
-export CUDACXX=/usr/local/cuda-12.8/bin/nvcc
-```
-
-Then, relogin or load the file to make the changes effective.
-```
-$ . ~/.bashrc
-```
-
 # Clone Repository (with Submodule)
 
 Clone this repository with the `llama.cpp` submodule:
